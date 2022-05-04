@@ -196,4 +196,47 @@ class Keyboard {
     this.switchCaps(shift);
   }
 
-  
+  switchCaps(shiftKey) {
+    const showUpperCase = (this.caps && !shiftKey) || (!this.caps && shiftKey);
+    const toCase = showUpperCase ? 'toUpperCase' : 'toLowerCase';
+    Array.from(this.keyboard.querySelectorAll('.key')).forEach(
+      (item) => {
+        if (!keys[item.id].func) {
+          if (item.id === 'Backquote' && this.lang === 'en') {
+            item.textContent = shiftKey ? '~' : '`';
+          } else if (item.id === 'Minus' && this.lang === 'en') {
+            item.textContent = shiftKey ? '_' : '-';
+          } else if (item.id === 'Equal' && this.lang === 'en') {
+            item.textContent = shiftKey ? '+' : '=';
+          } else if (item.id === 'BracketLeft' && this.lang === 'en') {
+            item.textContent = shiftKey ? '{' : '[';
+          } else if (item.id === 'BracketRight' && this.lang === 'en') {
+            item.textContent = shiftKey ? '}' : ']';
+          } else if (item.id === 'Backslash' && this.lang === 'en') {
+            item.textContent = shiftKey ? '|' : '\\';
+          } else if (item.id === 'Semicolon' && this.lang === 'en') {
+            item.textContent = shiftKey ? ':' : ';';
+          } else if (item.id === 'Quote' && this.lang === 'en') {
+            item.textContent = shiftKey ? '"' : "'";
+          } else if (item.id === 'Comma' && this.lang === 'en') {
+            item.textContent = shiftKey ? '<' : ',';
+          } else if (item.id === 'Period' && this.lang === 'en') {
+            item.textContent = shiftKey ? '>' : '.';
+          } else if (item.id === 'Slash' && this.lang === 'en') {
+            item.textContent = shiftKey ? '?' : '/';
+          } else if (item.id === 'Slash' && this.lang === 'ru') {
+            item.textContent = shiftKey ? ',' : '.';
+          } else {
+            item.textContent = item.textContent[toCase]();
+          }
+        }
+      },
+    );
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const myKeyboard = new Keyboard();
+    myKeyboard.start();
+  }
+);
