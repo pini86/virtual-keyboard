@@ -81,18 +81,25 @@
   }
   
   .key.active {
-    background: rgba(50, 50, 50, 0.2);
+    background: rgba(150, 50, 50, 0.2);
     border-radius: 16px;
     box-shadow: none;
   }
   
   .key:active {
+
+    background: rgba(50, 150, 50, 0.2);
+    border-radius: 16px;
+    box-shadow: none;
+  }
+  button:active{
+    background: rgba(50, 150, 50, 0.2);
     border-radius: 16px;
     box-shadow: none;
   }
   
   .key:hover {
-    background: rgba(50, 50, 50, 0.2);
+    background: rgba(190, 240, 190, 0.2);  
   }
   
   
