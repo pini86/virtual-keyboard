@@ -25,3 +25,16 @@ class Keyboard {
     this.description.textContent ='This keyboard task was writen in Visual Studio Code and tested in Microsoft Windows 10 64 bit.';
     this.language.classList.add('info');
     this.language.textContent ='To switch ENGLISH / RUSSIAN language , press `Alt` + `Shift` on Windows/Linux or Cmd+Alt on Mac (possible).';
+
+    this.keyboard.appendChild(keyPart);
+    this.showLanguage(this.lang);
+
+    this.wrapper.appendChild(this.title);
+    this.wrapper.appendChild(this.text);
+    this.wrapper.appendChild(this.keyboard);
+    this.wrapper.appendChild(this.description);
+    this.wrapper.appendChild(this.language);
+    document.body.appendChild(this.wrapper);
+
+    this.addListener();
+  }
