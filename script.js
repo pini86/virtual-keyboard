@@ -158,4 +158,33 @@ class Keyboard {
     this.text.selectionEnd = this.text.selectionStart;
   }
 
- 
+  insert(chars) {
+    const cursorAt = this.text.selectionStart;
+    this.text.value = this.text.value.slice(0, cursorAt) + chars + this.text.value.slice(this.text.selectionEnd);
+    this.text.selectionStart = cursorAt + chars.length;
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  backspace() {
+    if (this.text.selectionStart !== this.text.selectionEnd) {
+      this.insert('');
+    } else {
+      const cursorAt = Math.max(0, this.text.selectionStart - 1);
+      this.text.value = this.text.value.slice(0, cursorAt) + this.text.value.slice(this.text.selectionEnd);
+      this.text.selectionStart = cursorAt;
+      this.text.selectionEnd = this.text.selectionStart;
+    }
+  }
+
+  del() {
+    if (this.text.selectionStart !== this.text.selectionEnd) {
+      this.insert('');
+    } else {
+      const cursorAt = this.text.selectionStart;
+      this.text.value = this.text.value.slice(0, cursorAt) + this.text.value.slice(cursorAt + 1);
+      this.text.selectionStart = cursorAt;
+      this.text.selectionEnd = this.text.selectionStart;
+    }
+  }
+
+  
