@@ -27,7 +27,7 @@ class Keyboard {
     this.language.textContent ='To switch ENGLISH / RUSSIAN language , press `Alt` + `Shift` on Windows/Linux.';
 
     this.keyboard.appendChild(keyPart);
-    this.showLanguage(this.lang);
+    this.showLanguage(this.lang, false);
 
     this.wrapper.appendChild(this.title);
     this.wrapper.appendChild(this.text);
@@ -185,6 +185,15 @@ class Keyboard {
       this.text.selectionStart = cursorAt;
       this.text.selectionEnd = this.text.selectionStart;
     }
+  }
+
+  showLanguage(lang, shift) {
+    Array.from(this.keyboard.querySelectorAll('.key')).forEach(
+      (item) => {
+        item.textContent = keys[item.id][lang];
+      },
+    );
+    this.switchCaps(shift);
   }
 
   
