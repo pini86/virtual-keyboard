@@ -22,7 +22,7 @@ class Keyboard {
     const row = document.createElement('div');
     row.classList.add('row');
     this.description.classList.add('info');
-    this.description.textContent ='This keyboard task was writen in Visual Studio Code and tested in Microsoft Windows 10 64 bit.';
+    this.description.textContent ='This keyboard task was writen in Visual Studio Code v.1.66.2 and tested in Microsoft Windows 10 64 bit.';
     this.language.classList.add('info');
     this.language.textContent ='To switch ENGLISH / RUSSIAN language , press `Alt` + `Shift` on Windows/Linux.';
 
@@ -70,7 +70,7 @@ class Keyboard {
             this.showLanguage(this.lang, item.shiftKey);
         } else if (!keys[item.code].func) {
             item.preventDefault();
-            this.insertText(key.textContent);
+            this.insert(key.textContent);
         } else if (item.code === 'ArrowUp' && !item.isTrusted) {
             this.arrowUp();
         } else if (item.code === 'ArrowDown' && !item.isTrusted) {
@@ -84,16 +84,16 @@ class Keyboard {
             this.switchCaps(item.shiftKey);
         } else if (item.code === 'Tab') {
             item.preventDefault();
-            this.insertText('\t');
+            this.insert('\t');
         } else if (item.code === 'Enter') {
             item.preventDefault();
-            this.insertText('\n');
+            this.insert('\n');
         } else if (item.code === 'Backspace') {
             item.preventDefault();
-            this.pressBackspace();
+            this.backspace();
         } else if (item.code === 'Delete') {
             item.preventDefault();
-            this.pressDelete();
+            this.del();
         } 
       }
     });
@@ -135,4 +135,27 @@ class Keyboard {
     });
   }
 
-  
+  arrowUp() {
+    this.text.selectionStart = 0;
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  arrowDown() {
+    this.text.selectionEnd = this.text.textLength;
+    this.text.selectionStart = this.text.selectionEnd;
+  }
+
+  arrowLeft() {
+    this.text.selectionStart = Math.max(0, this.text.selectionStart - 1);
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+  arrowRight() {
+    this.text.selectionStart = Math.min(
+      this.text.textLength,
+      this.text.selectionEnd + 1,
+    );
+    this.text.selectionEnd = this.text.selectionStart;
+  }
+
+ 
