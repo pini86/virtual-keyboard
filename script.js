@@ -40,14 +40,14 @@ class Keyboard {
   }
 
   addListener() {
-    this.text.addEventListener('blur', () => {
+   /* this.text.addEventListener('blur', () => {
       setTimeout(() => {
         this.text.focus();
       }, 0);
-    });
+    });*/
 
     document.addEventListener('keydown', (item) => {
-        item.stopImmediatePropagation();
+        //item.stopImmediatePropagation();
 
       const key = document.getElementById(item.code);
       if (!key) {
@@ -98,4 +98,20 @@ class Keyboard {
       }
     });
 
-   
+    document.addEventListener('keyup', (item) => {
+        //item.stopImmediatePropagation();
+      const key = document.getElementById(item.code);
+      if (!key) {
+        item.preventDefault();
+        return;
+      }
+      if (item.code !== 'CapsLock') {
+        key.classList.remove('active');
+        if (item.key === 'Shift') {
+            item.preventDefault();
+          this.switchCaps(item.shiftKey);
+        }
+      }
+    });
+
+    
