@@ -114,4 +114,25 @@ class Keyboard {
       }
     });
 
-    
+    this.keyboard.addEventListener('click', (item) => {
+      this.text.focus();
+      const eventKeyDown = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        code: item.target.id,
+        view: window,
+      });
+      document.dispatchEvent(eventKeyDown);
+
+      this.text.focus();
+      const eventKeyUp = new KeyboardEvent('keyup', {
+        bubbles: true,
+        cancelable: true,
+        code: item.target.id,
+        view: window,
+      });
+      document.dispatchEvent(eventKeyUp);
+    });
+  }
+
+  
