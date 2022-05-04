@@ -38,3 +38,12 @@ class Keyboard {
 
     this.addListener();
   }
+
+  addListener() {
+    this.text.addEventListener('blur', () => {
+      setTimeout(() => {
+        this.text.focus();
+      }, 0);
+    });
+
+    
