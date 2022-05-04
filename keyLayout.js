@@ -1,3 +1,5 @@
+const keys = {};
+const keyPart = document.createDocumentFragment();
 const keyLayout = [
     [{
         code: 'Backquote',
@@ -81,7 +83,7 @@ const keyLayout = [
         code: 'Backspace',
         func: true,
         lang: { en: '⌫ Back', ru: '⌫ Back' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
     ],
     [
@@ -89,7 +91,7 @@ const keyLayout = [
         code: 'Tab',
         func: true,
         lang: { en: '↹ Tab', ru: '↹ Tab' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
       {
         code: 'KeyQ',
@@ -181,7 +183,7 @@ const keyLayout = [
         code: 'CapsLock',
         func: true,
         lang: { en: 'Caps Lock', ru: 'Caps Lock' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
       {
         code: 'KeyA',
@@ -253,7 +255,7 @@ const keyLayout = [
         code: 'Enter',
         func: true,
         lang: { en: '↩ Enter', ru: '↩ Enter' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
     ],
     [
@@ -261,7 +263,7 @@ const keyLayout = [
         code: 'ShiftLeft',
         func: true,
         lang: { en: '⇧ Shift', ru: '⇧ Shift' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
       {
         code: 'KeyZ',
@@ -333,7 +335,7 @@ const keyLayout = [
         code: 'ShiftRight',
         func: true,
         lang: { en: '⇧ Shift', ru: '⇧ Shift' },
-        width: 'extra-wide',
+        width: 'Bigger',
       },
     ],
     [
@@ -341,7 +343,7 @@ const keyLayout = [
         code: 'ControlLeft',
         func: true,
         lang: { en: 'Ctrl', ru: 'Ctrl' },
-        width: 'wide',
+        width: 'Big',
       },
       {
         code: 'AltLeft',
@@ -353,7 +355,7 @@ const keyLayout = [
         code: 'Space',
         func: false,
         lang: { en: ' ', ru: ' ' },
-        width: 'ultra-wide',
+        width: 'Space',
       },
       {
         code: 'AltRight',
@@ -365,7 +367,7 @@ const keyLayout = [
         code: 'ControlRight',
         func: true,
         lang: { en: 'Ctrl', ru: 'Ctrl' },
-        width: 'wide',
+        width: 'Big',
       },
       {
         code: 'ArrowLeft',
@@ -387,3 +389,24 @@ const keyLayout = [
       },
     ],
   ];
+
+keyLayout.forEach( ( item ) => {
+  const row = document.createElement('div');
+  row.classList.add('row');
+  item.forEach( ( key ) => {
+    keys[key.code] = key.lang;
+    keys[key.code].func = key.func;
+    const currentKey = document.createElement('button');
+    currentKey.setAttribute('type', 'button');
+    currentKey.setAttribute('id', key.code);
+    currentKey.textContent = key.lang.en;
+    currentKey.classList.add('key');
+    currentKey.classList.add(`key${key.width}`);
+    row.appendChild(currentKey);
+   } 
+  );
+  keyPart.appendChild(row);
+ }
+);
+
+export { keyPart, keys };
