@@ -91,7 +91,7 @@ const keyLayout = [
         code: 'Tab',
         func: true,
         lang: { en: '↹ Tab', ru: '↹ Tab' },
-        width: 'Bigger',
+        width: 'Big',
       },
       {
         code: 'KeyQ',
@@ -266,6 +266,12 @@ const keyLayout = [
         width: 'Bigger',
       },
       {
+        code: 'Backslash',
+        func: false,
+        lang: { en: '\\', ru: '\\' },
+        width: 'regular',
+      },
+      {
         code: 'KeyZ',
         func: false,
         lang: { en: 'z', ru: 'я' },
@@ -344,6 +350,12 @@ const keyLayout = [
         func: true,
         lang: { en: 'Ctrl', ru: 'Ctrl' },
         width: 'Big',
+      },
+      {
+        code: 'MetaLeft',
+        func: true,
+        lang: { en: 'Win', ru: 'Win' },
+        width: 'regular',
       },
       {
         code: 'AltLeft',

@@ -47,7 +47,7 @@ class Keyboard {
     });*/
 
     document.addEventListener('keydown', (item) => {
-        //item.stopImmediatePropagation();
+        item.stopImmediatePropagation();
 
       const key = document.getElementById(item.code);
       if (!key) {
@@ -99,7 +99,7 @@ class Keyboard {
     });
 
     document.addEventListener('keyup', (item) => {
-        //item.stopImmediatePropagation();
+      item.stopImmediatePropagation();
       const key = document.getElementById(item.code);
       if (!key) {
         item.preventDefault();
