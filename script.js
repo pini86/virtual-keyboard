@@ -25,30 +25,19 @@ class Keyboard {
     this.description.textContent ='This keyboard task was writen in Visual Studio Code v.1.66.2 and tested in Microsoft Windows 10 64 bit.';
     this.language.classList.add('info');
     this.language.textContent ='To switch ENGLISH / RUSSIAN language , press `Alt` + `Shift` on Windows/Linux.';
-
     this.keyboard.appendChild(keyPart);
     this.showLanguage(this.lang, false);
-
     this.wrapper.appendChild(this.title);
     this.wrapper.appendChild(this.text);
     this.wrapper.appendChild(this.keyboard);
     this.wrapper.appendChild(this.description);
     this.wrapper.appendChild(this.language);
     document.body.appendChild(this.wrapper);
-
     this.addListener();
   }
 
   addListener() {
-   /* this.text.addEventListener('blur', () => {
-      setTimeout(() => {
-        this.text.focus();
-      }, 0);
-    });*/
-
-    document.addEventListener('keydown', (item) => {
-        item.stopImmediatePropagation();
-
+      document.addEventListener('keydown', (item) => {
       const key = document.getElementById(item.code);
       if (!key) {
         item.preventDefault();
@@ -99,7 +88,7 @@ class Keyboard {
     });
 
     document.addEventListener('keyup', (item) => {
-      item.stopImmediatePropagation();
+        item.stopImmediatePropagation();
       const key = document.getElementById(item.code);
       if (!key) {
         item.preventDefault();
@@ -114,7 +103,11 @@ class Keyboard {
       }
     });
 
-    this.keyboard.addEventListener('click', (item) => {
+    this.keyboard.addEventListener('mousedown', (item) => {
+      if (item.target.id.includes("Shift")){
+        item.preventDefault();
+        this.switchCaps(true);
+      }
       this.text.focus();
       const eventKeyDown = new KeyboardEvent('keydown', {
         bubbles: true,
@@ -123,7 +116,13 @@ class Keyboard {
         view: window,
       });
       document.dispatchEvent(eventKeyDown);
+    });
 
+    this.keyboard.addEventListener('mouseup', (item) => {
+      if (item.target.id.includes("Shift")){
+        item.preventDefault();
+        this.switchCaps(false);
+      }
       this.text.focus();
       const eventKeyUp = new KeyboardEvent('keyup', {
         bubbles: true,
@@ -133,6 +132,7 @@ class Keyboard {
       });
       document.dispatchEvent(eventKeyUp);
     });
+
   }
 
   arrowUp() {

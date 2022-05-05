@@ -266,7 +266,7 @@ const keyLayout = [
         width: 'Bigger',
       },
       {
-        code: 'Backslash',
+        code: 'IntlBackslash',
         func: false,
         lang: { en: '\\', ru: '\\' },
         width: 'regular',
