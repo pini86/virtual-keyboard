@@ -139,7 +139,11 @@ class Keyboard {
     let begin = this.text.value.slice(0, this.text.selectionStart);//содержимое текстареа до курсора + переводы строк
     let arrRows = [];
     arrRows = begin.split(`\n`);//массив строк в текстареа без учета перевода строк
-    if (arrRows.length == 1) return
+    if (arrRows.length == 1) {
+      this.text.selectionStart = 0;
+      this.text.selectionEnd = this.text.selectionStart;
+      return;
+    }
     let currentPos = arrRows[arrRows.length-1].length;//положение курсора в текущей строке
     if (currentPos >= arrRows[arrRows.length-2].length){
       this.text.selectionStart = this.text.selectionStart - currentPos -1
@@ -150,24 +154,26 @@ class Keyboard {
   }
 
   arrowDown() {
-    let end = this.text.value.slice(this.text.selectionStart);//содержимое текстареа от курсора до конца текста + переводы строк
+    let begin = this.text.value.slice(0, this.text.selectionStart);//содержимое текстареа до курсора + переводы строк
     let arrRows = [];
-    arrRows = end.split(`\n`);//массив строк в текстареа без учета перевода строк
-    if (arrRows.length == 1) return
-    let currentPos = arrRows[0].length;//положение курсора в текущей строке с конца
-   
-
-
-    //завтра добавить поиск кусочка текущей строки с начала до курсора
-    if (currentPos >= arrRows[1].length){
-      this.text.selectionStart = this.text.selectionStart + currentPos + 1
-    } else {
-      this.text.selectionStart = this.text.selectionStart - arrRows[arrRows.length-2].length - 1 ; 
+    arrRows = begin.split(`\n`);//массив строк в текстареа без учета перевода строк до курсора
+    let currentRowStart = arrRows.pop();//начало текущей строки до курсора
+    
+    let end = this.text.value.slice(this.text.selectionStart);//содержимое текстареа от курсора до конца текста + переводы строк
+    let arrRowsEnd = [];
+    arrRowsEnd = end.split(`\n`);//массив строк в текстареа без учета перевода строк после курсора
+    let currentRowEnd = arrRowsEnd[0];//конец текущей строки после курсора
+    
+    if (arrRowsEnd.length == 1) {//курсор на последней строке
+      this.text.selectionStart = this.text.value.length;//то ставим в конец текста
+      return;
+    }
+    if (currentRowStart.length >= arrRowsEnd[1].length){//
+      this.text.selectionStart = this.text.selectionStart + currentRowEnd.length + arrRowsEnd[1].length + 1;
+    } else{
+      this.text.selectionStart = this.text.selectionStart + currentRowStart.length + currentRowEnd.length + 1;
     }
     this.text.selectionEnd = this.text.selectionStart;
-
-   // this.text.selectionEnd = this.text.textLength;
-    this.text.selectionStart = this.text.selectionEnd;
   }
 
   arrowLeft() {
