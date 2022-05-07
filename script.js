@@ -14,6 +14,7 @@ class Keyboard {
     this.keyboard = document.createElement('div');
     this.description = document.createElement('p');
     this.language = document.createElement('p');
+    this.warning = document.createElement('p');
     this.title.classList.add('title');
     this.title.textContent = '* RSS Virtual keyboard *';
     this.text.classList.add('text');
@@ -22,9 +23,11 @@ class Keyboard {
     const row = document.createElement('div');
     row.classList.add('row');
     this.description.classList.add('info');
-    this.description.textContent ='This keyboard task was writen in Visual Studio Code v.1.66.2 and tested in Microsoft Windows 10 64 bit.';
+    this.description.textContent ='This keyboard task was writen in Visual Studio Code v.1.67.0 and tested in Microsoft Windows 10 64 bit.';
     this.language.classList.add('info');
-    this.language.textContent ='To switch ENGLISH / RUSSIAN language , press `Alt` + `Shift` on Windows/Linux.';
+    this.language.textContent =`To switch ENGLISH / RUSSIAN language , press 'Alt' + 'Shift' on Windows/Linux.`;
+    this.warning.classList.add('info');
+    this.warning.textContent =`WARNING : in Russian language keyboard key 'rightAlt' equal 'leftCtrl'+'rightAlt'. This is not mistake, but famouse bag of Windows 7 and later.`;
     this.keyboard.appendChild(keyPart);
     this.showLanguage(this.lang, false);
     this.wrapper.appendChild(this.title);
@@ -32,6 +35,7 @@ class Keyboard {
     this.wrapper.appendChild(this.keyboard);
     this.wrapper.appendChild(this.description);
     this.wrapper.appendChild(this.language);
+    this.wrapper.appendChild(this.warning);
     document.body.appendChild(this.wrapper);
     this.addListener();
   }
@@ -136,15 +140,15 @@ class Keyboard {
   }
 
   arrowUp() {
-    let begin = this.text.value.slice(0, this.text.selectionStart);//содержимое текстареа до курсора + переводы строк
+    let begin = this.text.value.slice(0, this.text.selectionStart);
     let arrRows = [];
-    arrRows = begin.split(`\n`);//массив строк в текстареа без учета перевода строк
+    arrRows = begin.split(`\n`);
     if (arrRows.length == 1) {
       this.text.selectionStart = 0;
       this.text.selectionEnd = this.text.selectionStart;
       return;
     }
-    let currentPos = arrRows[arrRows.length-1].length;//положение курсора в текущей строке
+    let currentPos = arrRows[arrRows.length-1].length;
     if (currentPos >= arrRows[arrRows.length-2].length){
       this.text.selectionStart = this.text.selectionStart - currentPos -1
     } else {
@@ -154,21 +158,19 @@ class Keyboard {
   }
 
   arrowDown() {
-    let begin = this.text.value.slice(0, this.text.selectionStart);//содержимое текстареа до курсора + переводы строк
+    let begin = this.text.value.slice(0, this.text.selectionStart);
     let arrRows = [];
-    arrRows = begin.split(`\n`);//массив строк в текстареа без учета перевода строк до курсора
-    let currentRowStart = arrRows.pop();//начало текущей строки до курсора
-    
-    let end = this.text.value.slice(this.text.selectionStart);//содержимое текстареа от курсора до конца текста + переводы строк
+    arrRows = begin.split(`\n`);
+    let currentRowStart = arrRows.pop();
+    let end = this.text.value.slice(this.text.selectionStart);
     let arrRowsEnd = [];
-    arrRowsEnd = end.split(`\n`);//массив строк в текстареа без учета перевода строк после курсора
-    let currentRowEnd = arrRowsEnd[0];//конец текущей строки после курсора
-    
-    if (arrRowsEnd.length == 1) {//курсор на последней строке
-      this.text.selectionStart = this.text.value.length;//то ставим в конец текста
+    arrRowsEnd = end.split(`\n`);
+    let currentRowEnd = arrRowsEnd[0];
+    if (arrRowsEnd.length == 1) {
+      this.text.selectionStart = this.text.value.length;
       return;
     }
-    if (currentRowStart.length >= arrRowsEnd[1].length){//
+    if (currentRowStart.length >= arrRowsEnd[1].length){
       this.text.selectionStart = this.text.selectionStart + currentRowEnd.length + arrRowsEnd[1].length + 1;
     } else{
       this.text.selectionStart = this.text.selectionStart + currentRowStart.length + currentRowEnd.length + 1;
@@ -230,39 +232,31 @@ class Keyboard {
   switchCaps(shiftKey) {
     const showUpperCase = (this.caps && !shiftKey) || (!this.caps && shiftKey);
     const toCase = showUpperCase ? 'toUpperCase' : 'toLowerCase';
-    Array.from(this.keyboard.querySelectorAll('.key')).forEach(
-      (item) => {
+    const shiftableKeys = ['Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0',
+    'Minus','Equal','Backslash','Slash','Backquote','BracketLeft','BracketRight','Semicolon','Quote','Comma','Period'];
+    const engNonShift =['1','2','3','4','5','6','7','8','9','0','-','=','\\','/','`','[',']',';',"'",',','.'];
+    const engShift = ['!','@','#','$','%','^','&','*','(',')','_','+','|','?','~','{','}',':','"','<','>'];
+    const rusNonShift = ['1','2','3','4','5','6','7','8','9','0','-','=','\\','.','ё','х','ъ','ж',"э",'б','ю'];
+    const rusShift = ['!','"','№',';','%',':','?','*','(',')','_','+','/',',','Ё','Х','Ъ','Ж',"Э",'Б','Ю'];
+   
+    for (let item of Array.from(this.keyboard.querySelectorAll('.key'))){
         if (!keys[item.id].func) {
-          if (item.id === 'Backquote' && this.lang === 'en') {
-            item.textContent = shiftKey ? '~' : '`';
-          } else if (item.id === 'Minus' && this.lang === 'en') {
-            item.textContent = shiftKey ? '_' : '-';
-          } else if (item.id === 'Equal' && this.lang === 'en') {
-            item.textContent = shiftKey ? '+' : '=';
-          } else if (item.id === 'BracketLeft' && this.lang === 'en') {
-            item.textContent = shiftKey ? '{' : '[';
-          } else if (item.id === 'BracketRight' && this.lang === 'en') {
-            item.textContent = shiftKey ? '}' : ']';
-          } else if (item.id === 'Backslash' && this.lang === 'en') {
-            item.textContent = shiftKey ? '|' : '\\';
-          } else if (item.id === 'Semicolon' && this.lang === 'en') {
-            item.textContent = shiftKey ? ':' : ';';
-          } else if (item.id === 'Quote' && this.lang === 'en') {
-            item.textContent = shiftKey ? '"' : "'";
-          } else if (item.id === 'Comma' && this.lang === 'en') {
-            item.textContent = shiftKey ? '<' : ',';
-          } else if (item.id === 'Period' && this.lang === 'en') {
-            item.textContent = shiftKey ? '>' : '.';
-          } else if (item.id === 'Slash' && this.lang === 'en') {
-            item.textContent = shiftKey ? '?' : '/';
-          } else if (item.id === 'Slash' && this.lang === 'ru') {
-            item.textContent = shiftKey ? ',' : '.';
+          let numberShiftKey = shiftableKeys.indexOf(item.id);
+          if ( numberShiftKey != -1 ){
+            if (this.lang == 'en'){
+              item.textContent = shiftKey ? engShift[numberShiftKey] : engNonShift[numberShiftKey]
+            } else if( numberShiftKey <14 ) {
+              item.textContent = shiftKey ? rusShift[numberShiftKey] : rusNonShift[numberShiftKey]
+            } else {
+              item.textContent = item.textContent[toCase]();
+            }
           } else {
             item.textContent = item.textContent[toCase]();
-          }
+            }
         }
-      },
-    );
+      }
+    
+
   }
 }
 
