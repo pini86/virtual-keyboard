@@ -1,0 +1,30 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "Virtual keyboard RSS task",
+  "main": "script.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pini86/virtual-keyboard.git"
+  },
+  "keywords": [
+    "virtual",
+    "keyboard",
+    "RSS"
+  ],
+  "author": "Mikhail Druzhinin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pini86/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/pini86/virtual-keyboard#readme"
+}

@@ -1,0 +1,98 @@
+ *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+ html {
+    font-family: Roboto, sans-serif;
+    font-size: 10px;
+  }
+  
+  body {
+    background: #78c999;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+  
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    margin: 3% auto;
+    color: blue;
+  }
+  
+  .text {
+    height: 30vh;
+    width: 100%;
+    margin: 0 auto;
+    font-family: Roboto, sans-serif;
+    font-size: 2.5rem;
+    padding: 1%;
+  }
+  
+  .keyboard{
+      margin-top: 2%;
+      margin-bottom: 2%;
+  }
+
+  .info {
+    margin: 0 auto;
+    color: blue;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .key {
+    height: 60px;
+    width: 60px;
+    margin: 3px;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 1.7rem;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    outline: none;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .keyBig {
+    width: 80px;
+  }
+  
+  .keyBigger {
+    width: 110px;
+  }
+  
+  .keySpace {
+    width: 350px;
+  }
+  
+  .key.active {
+    background: rgba(116, 28, 28, 0.2);
+    border-radius: 16px;
+    box-shadow: none;
+  }
+    
+  .key:hover {
+    background: rgba(190, 240, 190, 0.1); 
+  }
+  
+  .key:active {
+    background: rgba(16, 163, 16, 0.2);
+    border-radius: 16px;
+    box-shadow: none;
+  }
+  
